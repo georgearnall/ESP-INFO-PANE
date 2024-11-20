@@ -79,7 +79,7 @@ void helloFourGreyLevels()
     display.print(fourgrey);
     display.setTextColor(GxEPD_LIGHTGREY);
     display.setCursor(umx, umy);
-    display.print(display.epd2.hasPartialUpdate ? spm : nb );
+    display.print(display.epd2.hasPartialUpdate ? spm : npm );
   }
   while (display.nextPage());
 
