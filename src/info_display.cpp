@@ -113,46 +113,26 @@ void _printMultilineTextCentered(String text, int16_t y, int16_t maxWidth) {
     }
 }
 
-
-void helloFourGreyLevels()
+#define STATUS_MESSAGE_PADDING_X  8
+void displayStatusMessage(String &message)
 {
-  Serial.println("helloFourGreyLevels");
-  const char fourgrey[] = "four grey levels";
-  const char spm[] = "slow partial mode";
-  const char npm[] = "no partial mode";
-  const char HelloWorld[] = "Hello World!";
-  display.setPartialWindow(0, 0, display.width(), display.height());
-  display.setRotation(3);
-  display.setFont(&FreeMonoBold9pt7b);
-  // do this outside of the loop
-  int16_t tbx, tby; uint16_t tbw, tbh;
-  // center update text
-  display.getTextBounds(fourgrey, 0, 0, &tbx, &tby, &tbw, &tbh);
-  uint16_t utx = ((display.width() - tbw) / 2) - tbx;
-  uint16_t uty = ((display.height() / 4) - tbh / 2) - tby;
-  // center update mode
-  display.getTextBounds(spm, 0, 0, &tbx, &tby, &tbw, &tbh);
-  uint16_t umx = ((display.width() - tbw) / 2) - tbx;
-  uint16_t umy = ((display.height() * 3 / 4) - tbh / 2) - tby;
-  // center HelloWorld
-  display.getTextBounds(HelloWorld, 0, 0, &tbx, &tby, &tbw, &tbh);
-  uint16_t hwx = ((display.width() - tbw) / 2) - tbx;
-  uint16_t hwy = ((display.height() - tbh) / 2) - tby;
-  display.firstPage();
-  do
-  {
-    display.fillScreen(GxEPD_WHITE);
-    display.setTextColor(GxEPD_BLACK);
-    display.setCursor(hwx, hwy);
-    display.print(HelloWorld);
-    display.setTextColor(GxEPD_DARKGREY);
-    display.setCursor(utx, uty);
-    display.print(fourgrey);
-    display.setTextColor(GxEPD_LIGHTGREY);
-    display.setCursor(umx, umy);
-    display.print(display.epd2.hasPartialUpdate ? spm : npm );
-  }
-  while (display.nextPage());
+    Serial.println("displayStatusMessage");
+    Serial.println(message);
 
-  Serial.println("helloFourGreyLevels done");
+    // Partial Update bottom 8px of screen
+    int16_t y = display.height() - 16;
+    display.setPartialWindow(0, y, display.width(), 16);
+    display.setTextSize(1);
+
+    int16_t tbx, tby; uint16_t tbw, tbh;
+    display.getTextBounds(message, 0, y, &tbx, &tby, &tbw, &tbh);
+    display.firstPage();
+    do
+    {
+        display.fillRect(0,  y, display.width(), 16, GxEPD_WHITE);
+        display.setTextColor(GxEPD_DARKGREY);
+        display.setCursor(display.width() - tbw - STATUS_MESSAGE_PADDING_X, y); // right align
+        display.print(message);
+    }
+    while (display.nextPage());
 }

@@ -6,8 +6,8 @@ Current Plan:
 
 * [x] Get 4 colour grayscle example working.
 * [x] Add WiFi connection / configuration.
-* [ ] Store API config
-* [ ] Connect to time server to get the latest time and display a clock.
+* [/] Store API config
+* [x] Connect to time server to get the latest time and display a clock.
 * [ ] Get local transpot departure information (trains, buses)
 * [ ] Housing / Frame
 * [ ] Battery Mode using low power sleep modes and infrequent updates

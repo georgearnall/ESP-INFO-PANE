@@ -1,5 +1,6 @@
 #include "info_display.h"
 #include "info_wifi.h"
+#include "info_time.h"
 #include <Arduino.h>
 #include <WiFi.h>
 
@@ -18,6 +19,11 @@ void setup() {
 
 void loop() {
     checkDisplayWifiStatus();
+    updateTime();
+
+    displayStatusMessage(String("Updated: ") + getTimeString());
+
+    delay(10000);
 }
 
 wl_status_t previousWifiStatus = WL_IDLE_STATUS;

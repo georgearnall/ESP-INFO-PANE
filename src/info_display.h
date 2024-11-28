@@ -4,8 +4,8 @@
 
 void setupDisplay();
 
-void helloFourGreyLevels();
-
 void displayAlert(String &message);
+
+void displayStatusMessage(String &message);
 
 #endif
